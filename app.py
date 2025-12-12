@@ -33,7 +33,7 @@ def gui():
             #: depth range
             depth_range_slider_min = gr.Slider(label="min depth", minimum=depth_range.start, maximum=depth_range.stop -
                                                1, step=1, interactive=True)
-            depth_range_slider_max = gr.Slider(label="max depth", minimum=depth_range.start, maximum=depth_range.stop -
+            depth_range_slider_max = gr.Slider(label="max depth (inclusive)", minimum=depth_range.start, maximum=depth_range.stop -
                                                1, step=1, interactive=True)
         with gr.Row():
             #: pointweight range
@@ -41,7 +41,7 @@ def gui():
             pointweight_range_slider_min = gr.Slider(
                 label="min pointweight", minimum=pointweight_range.start/10, maximum=(pointweight_range.stop-1)/10, step=0.5, interactive=True)
             pointweight_range_slider_max = gr.Slider(
-                label="max pointweight", minimum=pointweight_range.start/10, maximum=(pointweight_range.stop-1)/10, step=0.5, interactive=True)
+                label="max pointweight (inclusive)", minimum=pointweight_range.start/10, maximum=(pointweight_range.stop-1)/10, step=0.5, interactive=True)
 
         #: save mesh option
         save_mesh_checkbox = gr.Checkbox(

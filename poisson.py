@@ -2,6 +2,7 @@ import pymeshlab
 from csv import writer as writer
 from os import stat, path
 import itertools
+from pathlib import Path
 
 """The following variables are not used in practices, but remain included for testing, if necessary."""
 
@@ -23,12 +24,12 @@ def mesh_analysis(input_mesh_path: str, depth_min: int, depth_max: int, pointwei
 
     :param depth_min: Minimum depth value for Poisson reconstruction.
     :type depth_min: int
-    :param depth_max: Maximum depth value for Poisson reconstruction.
+    :param depth_max: Maximum depth value for Poisson reconstruction (inclusive).
     :type depth_max: int
 
     :param pointweight_min: Minimum pointweight value for Poisson reconstruction. Note that the input is divided by 10 for the actual reconstruction (and is thus a float), but is required as an integer for the file name.
     :type pointweight_min: int
-    :param pointweight_max: Maximum pointweight value for Poisson reconstruction.
+    :param pointweight_max: Maximum pointweight value for Poisson reconstruction (inclusive).
     :type pointweight_max: int
 
     :param output_folder: Folder where output files will be saved. Default is "./output".
@@ -43,6 +44,9 @@ def mesh_analysis(input_mesh_path: str, depth_min: int, depth_max: int, pointwei
     :param csv_filename: Name of the CSV file to be created. Default is "data.csv".
     :type csv_filename: str
     """
+
+    # Create output folder if it doesn't exist
+    Path(output_folder).mkdir(parents=True, exist_ok=True)
 
     mesh_statistics = {}  # Dictionary to hold statistics for each mesh
     # Turning the min and max values into a range
@@ -96,7 +100,7 @@ def mesh_analysis(input_mesh_path: str, depth_min: int, depth_max: int, pointwei
         mesh_statistics[meshname]['p'] = pointweight/10
         mesh_statistics[meshname]['c'] = str(preclean).lower()
         mesh_statistics[meshname]['size_kb'] = filesize
-        mesh_statistics[meshname]['vertices'] = ms.current_mesh(
+        mesh_statistics[meshname]['faces'] = ms.current_mesh(
         ).face_number()  # Store number of faces
 
     if create_csv:
