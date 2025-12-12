@@ -4,3 +4,9 @@ sandbox.py
 *.ply
 
 data.csv
+
+gui_sandbox.py
+
+__pycache__/
+
+output/
