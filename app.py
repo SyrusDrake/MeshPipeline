@@ -1,7 +1,7 @@
 import gradio as gr
 from poisson import mesh_analysis
 
-depth_range = range(0, 13)  # Default is 8, max recommended is 12
+depth_range = range(1, 13)  # Default is 8, max recommended is 12
 # Default is 4.0, no idea what the recommended max is, arbritrarily set to 8.0
 pointweight_range = range(0, 81, 5)
 preclean: bool = False  # Default is False

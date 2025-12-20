@@ -62,6 +62,13 @@ def mesh_analysis(input_mesh_path: str, depth_min: int, depth_max: int, pointwei
     ms.load_new_mesh(input_mesh_path)
     print("Mesh loaded.")
 
+    if create_csv:
+        # Store dict into a CSV file
+        with open(f"{output_folder}/{csv_filename}", 'w', newline='') as file:
+            file_writer = writer(file)
+            file_writer.writerow(['Mesh',
+                                  'Average', 'Max', 'Median', 'Min', 'StdDev', 'Variance', 'Depth', 'Pointweight', 'Preclean', 'Size_KB', 'Faces'])
+
     # Iterate over a range of depth and pointweight values
     for pointweight, depth, preclean in itertools.product(pointweight_range, depth_range, [False, True]):
 
@@ -103,23 +110,20 @@ def mesh_analysis(input_mesh_path: str, depth_min: int, depth_max: int, pointwei
         mesh_statistics[meshname]['faces'] = ms.current_mesh(
         ).face_number()  # Store number of faces
 
-    if create_csv:
-        # Store dict into a CSV file
-        with open(f"{output_folder}/{csv_filename}", 'w', newline='') as file:
-            file_writer = writer(file)
-            file_writer.writerow(['Mesh',
-                                  'Average', 'Max', 'Median', 'Min', 'StdDev', 'Variance', 'Depth', 'Pointweight', 'Preclean', 'Size_KB', 'Faces'])
-            for key, value in mesh_statistics.items():
-                file_writer.writerow([key,
-                                      value['avg'],
-                                      value['max'],
-                                      value['med'],
-                                      value['min'],
-                                      value['stddev'],
-                                      value['variance'],
-                                      value['d'],
-                                      value['p'],
-                                      value['c'],
-                                      value['size_kb'],
-                                      value['faces']])
+        if create_csv:
+            # Store dict into a CSV file
+            with open(f"{output_folder}/{csv_filename}", 'a', newline='') as file:
+                file_writer = writer(file)
+                file_writer.writerow([meshname,
+                                      mesh_statistics[meshname]['avg'],
+                                      mesh_statistics[meshname]['max'],
+                                      mesh_statistics[meshname]['med'],
+                                      mesh_statistics[meshname]['min'],
+                                      mesh_statistics[meshname]['stddev'],
+                                      mesh_statistics[meshname]['variance'],
+                                      mesh_statistics[meshname]['d'],
+                                      mesh_statistics[meshname]['p'],
+                                      mesh_statistics[meshname]['c'],
+                                      mesh_statistics[meshname]['size_kb'],
+                                      mesh_statistics[meshname]['faces']])
     print('done')
