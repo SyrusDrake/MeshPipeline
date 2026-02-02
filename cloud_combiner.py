@@ -1,6 +1,9 @@
 import pymeshlab
 from os import listdir
 
+# ver.: 0.2.0
+# last updated: 2024-06-10
+
 # Folder containing the individual scan clouds, one folder per group. This might later be selected in a GUI
 input_folder: str = "./cloud_input"
 
@@ -55,6 +58,9 @@ def combine_group_clouds(group_name: str, group_clouds: list[str], group_index: 
     return f"./output/{object_name}_({group_index}).ply"
 
 
+object_name = input("Enter the name of the object being processed: ")
+
+# Get list of all groups making up the object, lists them
 object_clouds = listdir(f"./{input_folder}")
 
 print(object_clouds)
