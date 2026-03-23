@@ -1,9 +1,11 @@
+#! /usr/bin/python3
+
 import pymeshlab
 from os import listdir, makedirs, path
 import argparse
 
-# ver.: 1.0.0
-# last updated: 2026-03-15
+# ver.: 1.0.1
+# last updated: 2026-03-23
 
 # Folder containing the individual scan clouds, one folder per group.
 object_folder: str = "cloud_input"
