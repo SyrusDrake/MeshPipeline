@@ -70,7 +70,7 @@ def mesh_analysis(input_mesh_path: str, depth_min: int, depth_max: int, pointwei
                                   'Average', 'Max', 'Median', 'Min', 'StdDev', 'Variance', 'Depth', 'Pointweight', 'Preclean', 'Size_KB', 'Faces'])
 
     # Iterate over a range of depth and pointweight values
-    for pointweight, depth, preclean in itertools.product(pointweight_range, depth_range, [False, True]):
+    for pointweight, depth in itertools.product(pointweight_range, depth_range):
 
         ms.set_current_mesh(
             0)  # Reset to the original import mesh before each reconstruction, otherwise, the previous reconstruction will be used as the input for the next one.
